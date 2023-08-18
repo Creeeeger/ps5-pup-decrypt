@@ -6,7 +6,7 @@ IDIRS   := -I. -Iinclude
 LDIRS   := -L. -Llib
 CFLAGS  := $(IDIRS) -fno-builtin -nostdlib -Wall -m64 -fPIC -mcmodel=small
 SFLAGS  := -fno-builtin -nostartfiles -nostdlib -fPIC -mcmodel=small
-LFLAGS  := $(LDIRS) -Xlinker -T linker.x -Wl,--build-id=none
+LFLAGS  := $(LDIRS) -Xlinker -T linker.x -Wl,--build-id=none,--allow-multiple-definition,-lc,-Lc
 CFILES  := $(wildcard $(SDIR)/*.c)
 SFILES  := $(wildcard $(SDIR)/*.s)
 OBJS    := $(patsubst $(SDIR)/%.c, $(ODIR)/%.o, $(CFILES)) $(patsubst $(SDIR)/%.s, $(ODIR)/%.o, $(SFILES))
