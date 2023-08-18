@@ -28,7 +28,7 @@ jobs:
       - name: Build Unpacker
         run: |
           make
-          ./ps5_pup_decrypt.elf
+          
 
       - name: Upload Binary Artifact
         uses: actions/upload-artifact@v2
