@@ -30,13 +30,6 @@ jobs:
           make clean
           make debug
           
-      - name: Test Unpacker
-        run: |
-          gdb ./ps5_pup_decrypt.elf
-          b main.c:40
-          r
-          bt
-          
       - name: Upload Binary Artifact
         uses: actions/upload-artifact@v2
         with:
