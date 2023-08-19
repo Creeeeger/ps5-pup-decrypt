@@ -32,6 +32,7 @@ jobs:
           
       - name: Test Unpacker
         run: |
+          gdb ./ps5_pup_decrypt.elf
           b main.c:40
           r
           bt
