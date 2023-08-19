@@ -4,9 +4,9 @@ ODIR    := build
 SDIR    := source
 IDIRS   := -I. -Iinclude
 LDIRS   := -L. -Llib
-CFLAGS  := $(IDIRS) -fno-builtin -nostdlib -Wall -m64 -fPIC -mcmodel=small
-SFLAGS  := -fno-builtin -nostartfiles -nostdlib -fPIC -mcmodel=small
-LFLAGS  := $(LDIRS) -Xlinker -T linker.x -Wl,--build-id=none,--allow-multiple-definition,-lc,-Lc
+CFLAGS  := $(IDIRS) -fno-builtin -nostdlib -Wall -m64 -fPIC -mcmodel=small -g
+SFLAGS  := -fno-builtin -nostartfiles -nostdlib -fPIC -mcmodel=small -g
+LFLAGS  := $(LDIRS) -Xlinker -T linker.x -Wl,--build-id=none -Wl,--allow-multiple-definition,-lc,-Lc,-g
 CFILES  := $(wildcard $(SDIR)/*.c)
 SFILES  := $(wildcard $(SDIR)/*.s)
 OBJS    := $(patsubst $(SDIR)/%.c, $(ODIR)/%.o, $(CFILES)) $(patsubst $(SDIR)/%.s, $(ODIR)/%.o, $(SFILES))
@@ -25,7 +25,10 @@ $(ODIR)/%.o: $(SDIR)/%.s
 $(ODIR):
 	@mkdir $@
 
-.PHONY: clean
+.PHONY: clean debug
+
+debug: $(TARGET)
+	gdb ./$(TARGET)
 
 clean:
 	rm -f $(shell basename $(CURDIR)).elf $(TARGET) $(ODIR)/*.o
