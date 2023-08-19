@@ -22,18 +22,22 @@ jobs:
           git clone https://github.com/Creeeeger/ps5-pup-decrypt.git
           cd ps5-pup-decrypt
           uname -a
-          sudo apt-get install make gcc
+          sudo apt-get install make gcc gdb
           chmod +rwx Makefile
           
       - name: Build Unpacker
         run: |
-          make
+          make clean
+          make debug
           
-
+      - name: Test Unpacker
+        run: |
+          b main.c:40
+          r
+          bt
+          
       - name: Upload Binary Artifact
         uses: actions/upload-artifact@v2
         with:
           path: |
             ./*.elf
-            
-
